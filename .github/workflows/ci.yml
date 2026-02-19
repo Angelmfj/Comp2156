@@ -22,33 +22,37 @@ jobs:
         with:
           node-version: "18.x"
 
-      # Cache Node.js modules
-      - name: Cache Node.js modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules
+      # Optional: limpiar cache si causa problemas
+      # - name: Cache Node.js modules
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
 
-      # Install dependencies
+      # Install dependencies using npm ci
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      # Debug: listar binarios instalados
+      - name: Debug Node modules
+        run: ls -la node_modules/.bin
 
       # Build React app
       - name: Build the app
         run: npm run build
 
       # Run tests
-      - name: Run test
+      - name: Run tests
         run: CI=true npm test
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}   
+          github_token: ${{ secrets.GH_PAT }}   # Tu token personal en Secrets
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
-
