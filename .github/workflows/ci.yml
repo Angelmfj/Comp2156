@@ -2,10 +2,12 @@ name: Deploy React App COMP2156 DevOps Project CI
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
+  
   pull_request:
-      branches: ["main","dep-inclusions"] # Adjust this to your main branch name if necessary
-    push: 
-      branches: ["dep-inclusions", "main"]
+    branches: ["main","dep-inclusions"]
+  push:
+    branches: ["dep-inclusions","main"]
+
 jobs:
   build:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
