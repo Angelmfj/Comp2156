@@ -13,37 +13,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+     
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18.x"
 
-      # Install all dependencies (prod + dev)
+      
       - name: Install dependencies
         run: npm install
 
-      # Optional: lista los binarios para debug
+      
       - name: Debug Node modules
         run: ls -la node_modules/.bin
 
-      # Build React app
+      
       - name: Build the app
         run: npm run build
 
-      # Run tests
+     
       - name: Run tests
         run: CI=true npm test
 
-      # Deploy to GitHub Pages
+      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PATH }}
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
