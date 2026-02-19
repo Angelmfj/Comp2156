@@ -13,14 +13,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "echo \"Warning: No tests created yet.\"",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  "eject": "react-scripts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "echo \"Warning: No tests created yet.\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",

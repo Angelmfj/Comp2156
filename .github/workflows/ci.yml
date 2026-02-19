@@ -2,14 +2,14 @@ name: Deploy React App COMP2156 DevOps Project CI
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
+  push:
+    branches: ["dep-inclusions", "main"]
   pull_request:
-    branches: ["main","dep-inclusions"] # Ajusta según tu rama principal
-  push: 
     branches: ["dep-inclusions", "main"]
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Última versión de Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
       
@@ -20,33 +20,37 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18.x" # La versión de Node adecuada para tu proyecto
+          node-version: "18.x"
 
-     
+      
       - name: Cache Node.js modules
         uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules # Tomar el último cache si falla con el package-lock.json actual  
-          
-   
+          restore-keys: node_modules
+
+      
       - name: Install dependencies
         run: npm install
 
      
+      - name: Debug Node modules
+        run: ls -la node_modules/.bin
+
+      
       - name: Build the app
         run: npm run build
 
-    
-      - name: Run test
+      
+      - name: Run tests
         run: CI=true npm test
 
-     
+      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GH_PATH }}   
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
