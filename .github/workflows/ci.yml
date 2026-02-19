@@ -46,7 +46,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}   # <-- Cambiado a tu token personal
+          github_token: ${{ secrets.GH_PAT }}   
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
