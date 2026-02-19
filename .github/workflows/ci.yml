@@ -3,12 +3,13 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
   pull_request:
-      branches: ["main","dep-inclusions"] # Adjust this to your main branch name if necessary
-    push: 
-      branches: ["dep-inclusions", "main"]
+    branches: ["main","dep-inclusions"] # Ajusta según tu rama principal
+  push: 
+    branches: ["dep-inclusions", "main"]
+
 jobs:
   build:
-    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    runs-on: ubuntu-latest # Última versión de Ubuntu
 
     steps:
       # Checkout the repository
@@ -19,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18.x" # Use the appropriate Node.js version for your project
+          node-version: "18.x" # La versión de Node adecuada para tu proyecto
 
       # Cache Node.js modules
       - name: Cache Node.js modules
@@ -27,7 +28,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: node_modules # Take any latest cache if failed to find it for current package-lock.json  
+          restore-keys: node_modules # Tomar el último cache si falla con el package-lock.json actual  
           
       # Install dependencies
       - name: Install dependencies
@@ -45,7 +46,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT }}
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
