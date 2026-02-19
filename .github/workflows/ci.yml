@@ -12,47 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Node.js environment
+      
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18.x"
 
-      # Optional: limpiar cache si causa problemas
-      # - name: Cache Node.js modules
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
-
-      # Install dependencies using npm ci
+      
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # Debug: listar binarios instalados
+     
       - name: Debug Node modules
         run: ls -la node_modules/.bin
 
-      # Build React app
+      
       - name: Build the app
         run: npm run build
 
-      # Run tests
+      
       - name: Run tests
         run: CI=true npm test
 
-      # Deploy to GitHub Pages
+     
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_PAT }}   # Tu token personal en Secrets
+          github_token: ${{ secrets.GH_PAT }}   # Tu token personal guardado en Secrets
           publish_dir: ./build
           publish_branch: gh-pages
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
+
